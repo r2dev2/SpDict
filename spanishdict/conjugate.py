@@ -20,7 +20,7 @@ async def get_participles(word: str, session: aiohttp.ClientSession) -> Dict[str
         r = await r_get(get_conjugate_url(word), session)
         soup = BeautifulSoup(await r.text(), "html.parser")
         # the table right above the indicative conjugation
-        participles = soup.find("table", {"class": "_9jeAZFrU"})
+        participles = soup.find("table", {"class": "participlesTable--9jeAZFrU"})
         culled = participles.find_all("a")
         present = str(culled[1].find("span").contents[0])
         past = str(culled[-1].find("span").contents[0])
@@ -44,7 +44,7 @@ def get_column_names(soup: BeautifulSoup) -> List[str]:
     return  [
         c.find('a').contents[0]
         # first tr second td > div > div
-        for c in soup.find_all("div", {"class": "_14F1yy0t"})
+        for c in soup.find_all("div", {"class": "inlineTooltipWrapper--14F1yy0t"})
     ]
 
 
@@ -54,7 +54,7 @@ def get_conjugations_from_table(
     raw = [
         get_aria_of_tag(v.find('a'))
         # td > div
-        for v in soup.find_all("div", {"class": "_1fU54Tfk"})
+        for v in soup.find_all("div", {"class": "vtableWordContents--1fU54Tfk"})
     ]
 
     tenses = get_column_names(soup)
@@ -80,7 +80,7 @@ async def get_conjugations(
         soup = BeautifulSoup(await r.text(), "html.parser")
         # #conjugation-content-wrapper > div > div > div > table
         conjugations = soup.find_all(
-                "table", {"class": "_2WLTGmgs"})
+                "table", {"class": "vtable--2WLTGmgs"})
         return get_conjugations_from_table(conjugations[mood])
     except Exception:
         return {"": [""]}
