@@ -39,6 +39,6 @@ setuptools.setup(
         "Operating System :: GNU/Linux",
     ],
     entry_points={"console_scripts": ["spdict=spdict:main"]},
-    python_requires=">=3.6",
+    python_requires=">=3.8",
     install_requires=requirements,
 )
