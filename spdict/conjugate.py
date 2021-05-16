@@ -22,8 +22,8 @@ async def get_participles(word: str, session: aiohttp.ClientSession) -> Dict[str
         # the table right above the indicative conjugation
         participles = soup.find("table", {"class": "participlesTable--9jeAZFrU"})
         culled = participles.find_all("a")
-        present = str(culled[1].find("span").contents[0])
-        past = str(culled[-1].find("span").contents[0])
+        present = str(culled[1].find("span").text)
+        past = str(culled[-1].find("span").text)
         return {
             "Present": "None" if "<span" in present else present,
             "Past": "None" if "<span" in past else past
