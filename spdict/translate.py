@@ -29,11 +29,11 @@ async def translate(word: str, session: aiohttp.ClientSession) -> List[str]:
         r = await r_get(f"{url}/translate/{word}", session)
         soup = BeautifulSoup(await r.text(), "html.parser")
         # translation_div > _ > _ > quickdef
-        translation_div = soup.find("div", {"class": "quickdefsWrapperDesktop--fy8K_XyV"})
+        translation_div = soup.find("div", {"class": "fy8K_XyV"})
         # quickdef > translations
         res = [element.contents[0]
                 for element in
-                translation_div.find_all('a', {"class": "a--3Le9u96E"})]
+                translation_div.find_all('a', {"class": "_3Le9u96E"})]
         return res
     except Exception:
         return ["TODO"]
